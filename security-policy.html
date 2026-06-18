@@ -70,13 +70,39 @@
         <li>Vulnerabilities in third-party services outside our control.</li>
       </ul>
 
-      <h2>6. Security controls overview</h2>
-      <p>
-        Timesheet Basic is built on Atlassian Forge and follows least-privilege access. Current scopes:
-        <code>read:jira-user</code>, <code>read:jira-work</code>, <code>write:jira-work</code>.
-      </p>
+      <h2>6. Data encryption</h2>
+      <ul>
+        <li>All data in transit is encrypted via TLS 1.2+ (enforced by Atlassian Forge).</li>
+        <li>Sensitive data such as API credentials, tokens, and user identifiers are not stored locally by the app; they are processed through Forge's secure context.</li>
+        <li>At rest, worklog data remains in Jira Cloud, which uses Atlassian's data center encryption standards.</li>
+      </ul>
 
-      <h2>7. Policy updates</h2>
+      <h2>7. Access controls</h2>
+      <ul>
+        <li>Timesheet Basic enforces Jira-native permissions: only users with appropriate Jira access can view/edit worklogs.</li>
+        <li>The app does not create separate authentication layers or bypass Jira RBAC.</li>
+        <li>OAuth scopes are minimized to least-privilege: <code>read:jira-user</code>, <code>read:jira-work</code>, <code>write:jira-work</code>.</li>
+        <li>All API requests use `.asUser()` where possible to maintain user context and authorization checks.</li>
+      </ul>
+
+      <h2>8. Vulnerability management</h2>
+      <ul>
+        <li>We actively monitor Atlassian Forge platform security advisories and update dependencies.</li>
+        <li>Security patches are deployed to production within 7 days of availability (or sooner for critical CVEs).</li>
+        <li>Vulnerability reports are triaged within 3 business days and shared with relevant customers as public patches.</li>
+        <li>We do not disclose vulnerabilities to the public until patches are deployed.</li>
+      </ul>
+
+      <h2>9. Incident response procedures</h2>
+      <ul>
+        <li>Security incidents are escalated to security@hoyaqui.es immediately upon discovery.</li>
+        <li>For production incidents, initial triage occurs within 1 business hour.</li>
+        <li>Affected customers are notified within 24 hours of a confirmed breach or data loss.</li>
+        <li>Post-incident, a root cause analysis is performed and remediation steps are documented.</li>
+        <li>Logs of security events are retained for 90 days for forensics and audit purposes.</li>
+      </ul>
+
+      <h2>10. Policy updates</h2>
       <p>
         We may update this policy over time. Material changes are reflected by updating the date above.
       </p>
